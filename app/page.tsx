@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { generateRoomId } from '@/lib/client-utils';
+// CORRECTED IMPORT PATH:
+import { generateRoomId } from '../lib/client-utils';
 import styles from '../styles/Home.module.css';
 
 export default function Page() {

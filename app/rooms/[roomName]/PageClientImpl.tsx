@@ -15,12 +15,12 @@ import {
   VideoCodec,
 } from 'livekit-client';
 import { useRouter } from 'next/navigation';
-import type { ConnectionDetails } from '/Users/dindayalsingh/Downloads/knect/meet/lib/types.ts';
+// CORRECTED IMPORT PATH:
+import type { ConnectionDetails } from '@/lib/types';
 
 const CONN_DETAILS_ENDPOINT = '/api/connection-details';
 
 // --- TranslationControls Component ---
-// This component contains the dropdowns for language and gender selection.
 function TranslationControls({
   onChange,
 }: {
@@ -72,13 +72,11 @@ export function PageClientImpl(props: {
   const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
     undefined,
   );
-  // State to hold the user's translation preferences
   const [translationSettings, setTranslationSettings] = React.useState({
     inputLang: 'en-us',
     outputLang: 'hi',
     gender: 'female',
   });
-
   const [connectionDetails, setConnectionDetails] = React.useState<ConnectionDetails | undefined>(
     undefined,
   );
@@ -94,7 +92,6 @@ export function PageClientImpl(props: {
       url.searchParams.append('roomName', props.roomName);
       url.searchParams.append('participantName', values.username);
 
-      // We stringify our settings and add them as metadata.
       const metadata = JSON.stringify(translationSettings);
       url.searchParams.append('metadata', metadata);
 
@@ -113,7 +110,6 @@ export function PageClientImpl(props: {
       {connectionDetails === undefined || preJoinChoices === undefined ? (
         <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
           <PreJoin onSubmit={handlePreJoinSubmit}>
-            {/* We inject our custom controls into the PreJoin component */}
             <TranslationControls onChange={handleTranslationSettingsChange} />
           </PreJoin>
         </div>
@@ -136,11 +132,7 @@ function VideoConferenceComponent(props: {
     codec: VideoCodec;
   };
 }) {
-  const roomOptions = React.useMemo((): RoomOptions => {
-    return {
-      // video/publish settings can be configured here if needed.
-    };
-  }, []);
+  const roomOptions = React.useMemo((): RoomOptions => ({}), []);
 
   const room = React.useMemo(() => new Room(roomOptions), [roomOptions]);
 
@@ -175,10 +167,8 @@ function VideoConferenceComponent(props: {
   return (
     <div className="lk-room-container">
       <RoomContext.Provider value={room}>
-        {/* This is the simplified VideoConference component */}
         <VideoConference />
       </RoomContext.Provider>
     </div>
   );
 }
-
