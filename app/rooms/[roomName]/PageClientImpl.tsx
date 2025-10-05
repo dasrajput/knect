@@ -15,11 +15,12 @@ import {
   VideoCodec,
 } from 'livekit-client';
 import { useRouter } from 'next/navigation';
-import type { ConnectionDetails } from '/Users/dindayalsingh/Downloads/knect/meet/lib/types';
+import type { ConnectionDetails } from '/Users/dindayalsingh/Downloads/knect/meet/lib/types.ts';
 
 const CONN_DETAILS_ENDPOINT = '/api/connection-details';
 
-// Component for our translation dropdowns
+// --- TranslationControls Component ---
+// This component contains the dropdowns for language and gender selection.
 function TranslationControls({
   onChange,
 }: {
@@ -137,7 +138,7 @@ function VideoConferenceComponent(props: {
 }) {
   const roomOptions = React.useMemo((): RoomOptions => {
     return {
-      // video/publish settings can be configured here.
+      // video/publish settings can be configured here if needed.
     };
   }, []);
 
@@ -174,6 +175,7 @@ function VideoConferenceComponent(props: {
   return (
     <div className="lk-room-container">
       <RoomContext.Provider value={room}>
+        {/* This is the simplified VideoConference component */}
         <VideoConference />
       </RoomContext.Provider>
     </div>

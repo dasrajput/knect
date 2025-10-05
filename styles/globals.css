@@ -66,8 +66,44 @@ h2 a {
   text-decoration: none;
 }
 
-/* Hide chat and screen share buttons */
-.lk-control-bar-button[aria-label="chat"],
-.lk-control-bar-button[aria-label="share-screen"] {
+/* Hide chat, screen share, and participants buttons */
+.lk-control-bar-button[aria-label='chat'],
+.lk-control-bar-button[aria-label='share-screen'],
+.lk-control-bar-button[aria-label='shareScreen'],
+.lk-control-bar [aria-label='participants'] {
   display: none;
 }
+
+/* Styles for our new translation controls */
+.translation-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--lk-border-color);
+  border-radius: 0.5rem;
+  background-color: var(--lk-bg2);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--lk-text-primary);
+}
+
+.control-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--lk-border-color);
+  background-color: var(--lk-bg);
+  color: var(--lk-text-primary);
+}
+
