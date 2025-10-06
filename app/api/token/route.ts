@@ -1,29 +1,48 @@
 import { AccessToken } from 'livekit-server-sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
+// Prevent caching
+export const revalidate = 0;
+
 export async function GET(req: NextRequest) {
-  const room = req.nextUrl.searchParams.get('room');
-  const username = req.nextUrl.searchParams.get('username');
-  if (!room || !username) {
+  const roomName = req.nextUrl.searchParams.get('roomName');
+  const participantName = req.nextUrl.searchParams.get('participantName');
+  const metadata = req.nextUrl.searchParams.get('metadata');
+  
+  if (!roomName || !participantName) {
     return NextResponse.json(
-      { error: 'Missing "room" or "username" query parameter' },
+      { error: 'Missing required parameters' },
       { status: 400 }
     );
   }
 
-  // These must match your local server's --dev settings
   const apiKey = 'devkey';
-  const apiSecret = 'secret';
+  const apiSecret = 'pnCh9Cw13Zh4nMP_ZBZBQiFDoIaKuWHxz1B4MToCBrQ=';
+  const serverUrl = 'ws://localhost:7880';
 
-  const at = new AccessToken(apiKey, apiSecret, { identity: username });
+  // Create token with metadata
+  const at = new AccessToken(apiKey, apiSecret, {
+    identity: participantName,
+    meta metadata || undefined,
+  });
 
   at.addGrant({
-    room,
+    room: roomName,
     roomJoin: true,
     canPublish: true,
     canSubscribe: true,
   });
 
   const token = await at.toJwt();
-  return NextResponse.json({ token });
+  
+  // Return BOTH serverUrl and participantToken (your frontend expects this format)
+  return NextResponse.json(
+    {
+      serverUrl: serverUrl,
+      participantToken: token,
+    },
+    {
+      headers: { 'Cache-Control': 'no-store' }
+    }
+  );
 }

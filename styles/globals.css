@@ -74,7 +74,37 @@ h2 a {
   display: none;
 }
 
-/* Styles for our new translation controls */
+/* Join controls container */
+.join-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+}
+
+/* Username input styles */
+.username-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--lk-border-color);
+  background-color: var(--lk-bg);
+  color: var(--lk-text-primary);
+  font-size: 1rem;
+}
+
+.username-input:focus {
+  outline: none;
+  border-color: #ff6352;
+}
+
+.username-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Styles for our translation controls */
 .translation-controls {
   display: flex;
   flex-direction: column;
